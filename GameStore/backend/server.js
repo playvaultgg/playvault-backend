@@ -41,12 +41,16 @@ if (process.env.NODE_ENV === 'production') {
 
 // Connect to MongoDB conditionally (Jest handles memory DB in tests)
 if (process.env.NODE_ENV !== 'test') {
+    const PORT = process.env.PORT || 5000;
+
     mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost:27017/gamevault')
         .then(() => console.log('MongoDB connected'))
-        .catch(err => console.log(err));
+        .catch(err => console.error('MongoDB connection error:', err.message));
 
-    const PORT = process.env.PORT || 5000;
-    app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+    // Bind to 0.0.0.0 so Railway/external hosts can reach the app
+    app.listen(PORT, '0.0.0.0', () => {
+        console.log(`Server running on port ${PORT}`);
+    });
 }
 
 module.exports = app;
