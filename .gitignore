@@ -1,0 +1,20 @@
+# Dependencies
+node_modules/
+
+# Env and secrets
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+GameStore/frontend/dist/
+
+# Logs and cache
+*.log
+npm-debug.log*
+.cache
+
+# OS
+.DS_Store
+Thumbs.db
