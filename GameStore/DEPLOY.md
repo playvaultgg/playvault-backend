@@ -1,15 +1,17 @@
 # Deploy PlayVault to Railway
 
-Your repo uses **`backend/`** and **`frontend/`** (not `server/` or `client/`).
+Your repo uses **`backend/`** and **`frontend/`** inside **GameStore/**.
 
-- **backend/** → Node/Express API  
-- **frontend/** → Vite/React app (builds to `frontend/dist`)
+- **GameStore/backend/** → Node/Express API  
+- **GameStore/frontend/** → Vite/React app (builds to `frontend/dist`)
+
+Repo: **playvault-backend** (root = H1, so app lives in **GameStore/**).
 
 ---
 
 ## 1. GitHub
 
-Repo: https://github.com/playvaultgg/playvalut.git — already set up.
+Repo: https://github.com/playvaultgg/playvault-backend — already set up.
 
 ## 2. MongoDB Atlas
 
@@ -19,23 +21,25 @@ Repo: https://github.com/playvaultgg/playvalut.git — already set up.
 - **Connect** → Drivers → copy connection string, e.g.  
   `mongodb+srv://USER:PASSWORD@cluster.mongodb.net/playvault`
 
-## 3. Railway
+## 3. Railway – Root Directory (required)
 
-- **New Project** → **Deploy from GitHub repo** → select **playvaultgg/playvalut**
-- If your repo root is **GameStore** (so you see `backend/` and `frontend/` at root): leave **Root Directory** empty.
-- If your repo root is **H1** (so you see `GameStore/backend` and `GameStore/frontend`): set **Root Directory** to **`GameStore`**.
+Your repo root has `GameStore/`, `images/`, `README.md` — the Node app is inside **GameStore**.
 
-## 4. Build & start (exact commands)
+- In Railway: open your service → **Settings** → **Source** (or **General**).
+- Set **Root Directory** to: **`GameStore`**  
+  (so Railpack sees `package.json`, `backend/`, `frontend/` and detects Node).
 
-In Railway → your service → **Settings**:
+## 4. Build & start commands
+
+In Railway → your service → **Settings** → **Build** / **Deploy**:
 
 | Setting | Value |
 |--------|--------|
-| **Install Command** | `cd backend && npm install && cd ../frontend && npm install` |
-| **Build Command** | `cd frontend && npm run build` |
-| **Start Command** | `cd backend && npm start` |
+| **Install Command** | `npm run install:all` |
+| **Build Command** | `npm run build` |
+| **Start Command** | `npm start` |
 
-(If Root Directory is `GameStore`, these paths are correct. If repo root is already the folder that contains `backend/` and `frontend/`, use the same commands.)
+(Root `GameStore/package.json` runs: install backend + frontend deps, build frontend, start backend.)
 
 ## 5. Environment variables (Railway → Variables)
 

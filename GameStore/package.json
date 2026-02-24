@@ -1,0 +1,13 @@
+{
+  "name": "playvault",
+  "private": true,
+  "description": "PlayVault full-stack app (backend + frontend)",
+  "scripts": {
+    "install:all": "cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build",
+    "start": "cd backend && node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
