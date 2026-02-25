@@ -7,8 +7,10 @@ const Game = require('../models/Game');
 router.get('/', async (req, res) => {
     try {
         const games = await Game.find({ isActive: true });
+        console.log('Games count:', games.length);
         res.json(games);
     } catch (err) {
+        console.error('GET /api/games error:', err.message);
         res.status(500).json({ message: err.message });
     }
 });

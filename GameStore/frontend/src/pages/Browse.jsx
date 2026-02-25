@@ -8,14 +8,17 @@ const Browse = () => {
     const [games, setGames] = useState([]);
     const [search, setSearch] = useState('');
     const [loading, setLoading] = useState(true);
+    const [fetchError, setFetchError] = useState('');
 
     useEffect(() => {
         const fetchGames = async () => {
+            setFetchError('');
             try {
                 const { data } = await axios.get('/api/games');
-                setGames(data);
+                setGames(Array.isArray(data) ? data : []);
             } catch (err) {
                 console.error('Error fetching games:', err);
+                setFetchError('Could not load games. Check your connection or try again later.');
             } finally {
                 setLoading(false);
             }
@@ -156,8 +159,23 @@ const Browse = () => {
                 {filteredGames.length === 0 && !loading && (
                     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="py-20 text-center">
                         <ShoppingBag className="w-16 h-16 text-gray-700 mx-auto mb-4" />
-                        <h3 className="text-2xl font-bold text-gray-500 uppercase tracking-widest">No matching games found</h3>
-                        <p className="text-gray-600 mt-2">Try adjusting your search query.</p>
+                        {fetchError ? (
+                            <>
+                                <h3 className="text-2xl font-bold text-red-400 uppercase tracking-widest">Could not load games</h3>
+                                <p className="text-gray-500 mt-2">{fetchError}</p>
+                                <p className="text-gray-600 mt-1 text-sm">The database may be unavailable. Check Railway deploy logs for &quot;MongoDB connected&quot;.</p>
+                            </>
+                        ) : games.length === 0 ? (
+                            <>
+                                <h3 className="text-2xl font-bold text-gray-500 uppercase tracking-widest">No games in the vault yet</h3>
+                                <p className="text-gray-600 mt-2">Add games via Admin, or run the seeder to populate the database.</p>
+                            </>
+                        ) : (
+                            <>
+                                <h3 className="text-2xl font-bold text-gray-500 uppercase tracking-widest">No matching games found</h3>
+                                <p className="text-gray-600 mt-2">Try adjusting your search query.</p>
+                            </>
+                        )}
                     </motion.div>
                 )}
             </div>
