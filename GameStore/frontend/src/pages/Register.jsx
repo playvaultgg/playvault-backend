@@ -36,7 +36,8 @@ const Register = () => {
                 navigate('/login');
             }, 3000);
         } catch (err) {
-            setError(err.response?.data?.message || 'Registration failed');
+            const msg = err.response?.data?.message || err.message || 'Registration failed';
+            setError(msg);
             setLoading(false);
         }
     };
