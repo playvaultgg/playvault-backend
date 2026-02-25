@@ -31,5 +31,12 @@ git commit -m "your message"
 git push origin main
 ```
 
+**If push says "rejected (fetch first)"** — pull then push:
+```powershell
+cd "C:\Users\gunde\OneDrive\Desktop\H1"
+git pull origin main
+git push origin main
+```
+
 **If you see:** `The token '&&' is not a valid statement separator`  
 → You are in PowerShell. Use **`;`** not **`&&`**, or run one command per line.
