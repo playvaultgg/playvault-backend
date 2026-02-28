@@ -79,47 +79,39 @@ const Cart = () => {
                         </div>
 
                         {/* Sticky Order Summary Layer */}
-                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="relative h-fit">
-                            <div className="glass-card rounded-2xl p-8 sticky top-32">
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="relative h-fit order-first lg:order-last">
+                            <div className="glass-card rounded-2xl p-6 md:p-8 lg:sticky lg:top-32 shadow-[0_0_40px_rgba(212,175,55,0.08)]">
                                 <h3 className="text-xl font-black text-white mb-6 border-b border-gray-800 pb-4 uppercase tracking-widest">Transaction <span className="text-[#d4af37]">Summary</span></h3>
 
-                                <div className="space-y-4 mb-6 text-sm font-medium tracking-wide">
-                                    <div className="flex justify-between text-gray-400">
+                                <div className="space-y-4 mb-6 text-sm font-bold tracking-wide">
+                                    <div className="flex justify-between text-gray-500">
                                         <span>Subtotal ({cartItems.length} items)</span>
-                                        <span className="text-white">
+                                        <span className="text-white font-black uppercase">
                                             ₹{Number(getCartTotal()).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                                         </span>
                                     </div>
-                                    <div className="flex justify-between text-gray-400">
-                                        <span>Digital Tax</span>
-                                        <span className="text-white">₹0</span>
-                                    </div>
-                                    <div className="flex justify-between text-gray-400 pb-4 border-b border-gray-800">
+                                    <div className="flex justify-between text-gray-500 pb-4 border-b border-gray-800">
                                         <span>Delivery Fee</span>
-                                        <span className="bg-[#d4af37]/20 text-[#d4af37] px-2 py-0.5 rounded text-[10px] uppercase font-bold tracking-widest">Free Instant</span>
+                                        <span className="bg-[#d4af37]/10 text-[#d4af37] px-3 py-1 rounded text-[10px] uppercase font-black tracking-widest border border-[#d4af37]/30">Instant</span>
                                     </div>
                                 </div>
 
                                 <div className="flex justify-between items-end mb-8 pt-2">
-                                    <span className="text-gray-400 font-bold uppercase tracking-widest text-xs">Total Due</span>
+                                    <span className="text-gray-400 font-bold uppercase tracking-widest text-[10px]">Total Due</span>
                                     <div className="flex items-start text-white">
-                                        <span className="text-xl font-bold mt-1">₹</span>
-                                        <span className="text-4xl font-black tracking-tighter">
+                                        <span className="text-xl font-bold mt-1 mr-1">₹</span>
+                                        <span className="text-5xl font-black tracking-tighter">
                                             {Number(getCartTotal()).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                                         </span>
                                     </div>
                                 </div>
 
-                                <button onClick={() => navigate('/checkout')} className="w-full bg-[#d4af37] text-black font-extrabold py-5 rounded-xl transition-all uppercase tracking-[0.2em] flex justify-center items-center glow-btn glow-btn-gold mt-4">
+                                <button onClick={() => navigate('/checkout')} className="w-full bg-[#d4af37] text-black font-black py-5 rounded-xl transition-all uppercase tracking-[0.2em] flex justify-center items-center glow-btn glow-btn-gold mt-4 text-sm">
                                     SECURE CHECKOUT <ShieldCheck className="w-5 h-5 ml-2" />
                                 </button>
-
-                                <div className="mt-6 text-center space-y-2 text-[10px] text-gray-500 uppercase tracking-widest font-bold">
-                                    <p>Protected by 256-bit AES Encryption</p>
-                                    <p>Processed via FamPay API</p>
-                                </div>
                             </div>
                         </motion.div>
+
                     </div>
                 )}
             </div>

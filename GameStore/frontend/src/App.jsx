@@ -44,17 +44,18 @@ const AppContent = () => {
           <Route path="/game/:id" element={<GameDetails />} />
 
           {/* Admin Protected Routes */}
-          <Route path="/admin/login" element={<AdminLogin />} />
-          <Route element={<AdminLayout />}>
-            <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/games" element={<AdminGames />} />
-            <Route path="/admin/games/new" element={<AdminAddEditGame />} />
-            <Route path="/admin/games/:id/edit" element={<AdminAddEditGame />} />
-            <Route path="/admin/payments" element={<AdminPayments />} />
-            <Route path="/admin/users" element={<AdminUsers />} />
-            <Route path="/admin/orders" element={<AdminOrders />} />
-            <Route path="/admin/messages" element={<AdminMessages />} />
+          <Route path="/admin" element={<AdminLayout />}>
+            <Route index element={<AdminDashboard />} />
+            <Route path="dashboard" element={<AdminDashboard />} />
+            <Route path="games" element={<AdminGames />} />
+            <Route path="games/new" element={<AdminAddEditGame />} />
+            <Route path="games/:id/edit" element={<AdminAddEditGame />} />
+            <Route path="payments" element={<AdminPayments />} />
+            <Route path="users" element={<AdminUsers />} />
+            <Route path="orders" element={<AdminOrders />} />
+            <Route path="messages" element={<AdminMessages />} />
           </Route>
+          <Route path="/admin/login" element={<AdminLogin />} />
 
         </Routes>
       </main>

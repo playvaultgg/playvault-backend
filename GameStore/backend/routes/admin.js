@@ -6,6 +6,8 @@ const Game = require('../models/Game');
 const Order = require('../models/Order');
 const Category = require('../models/Category');
 const { protect, admin } = require('../middleware/authMiddleware');
+const { upload } = require('../utils/cloudinary');
+
 
 const generateToken = (id, role) => {
     return jwt.sign({ id, role }, process.env.JWT_SECRET || 'secret', {
@@ -85,7 +87,31 @@ router.get('/stats', protect, admin, async (req, res) => {
     }
 });
 
+// @route   POST /api/admin/upload-image
+// @desc    Upload game image to cloud storage
+router.post('/upload-image', protect, admin, (req, res, next) => {
+    upload.single('image')(req, res, (err) => {
+        if (err) {
+            console.error('MULTER_UPLOAD_ERROR:', err);
+            return res.status(400).json({ message: err.message });
+        }
+        next();
+    });
+}, async (req, res) => {
+    try {
+        if (!req.file) {
+            return res.status(400).json({ message: 'Please upload an image file' });
+        }
+        res.json({ imageUrl: req.file.path });
+    } catch (err) {
+        console.error('CLOUDINARY_UPLOAD_ERROR:', err);
+        res.status(500).json({ message: 'Cloudinary Upload Failed: ' + err.message });
+    }
+});
+
+
 // @route   POST /api/admin/games
+
 // @desc    Add new game
 router.post('/games', protect, admin, async (req, res) => {
     try {
@@ -93,9 +119,14 @@ router.post('/games', protect, admin, async (req, res) => {
         const createdGame = await game.save();
         res.status(201).json(createdGame);
     } catch (err) {
-        res.status(500).json({ message: err.message });
+        console.error('SAVE_GAME_ERROR:', err);
+        res.status(500).json({
+            message: err.message,
+            stack: process.env.NODE_ENV === 'production' ? null : err.stack
+        });
     }
 });
+
 
 // @route   PUT /api/admin/games/:id
 // @desc    Update a game
@@ -118,9 +149,11 @@ router.put('/games/:id', protect, admin, async (req, res) => {
             res.status(404).json({ message: 'Game not found' });
         }
     } catch (err) {
+        console.error('UPDATE_GAME_ERROR:', err);
         res.status(500).json({ message: err.message });
     }
 });
+
 
 // @route   DELETE /api/admin/games/:id
 // @desc    Delete a game

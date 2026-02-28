@@ -68,8 +68,9 @@ const Profile = () => {
                     <motion.div
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
-                        className="glass-card rounded-2xl p-8 sticky top-24"
+                        className="glass-card rounded-2xl p-8 lg:sticky lg:top-32 h-fit"
                     >
+
                         <motion.div
                             whileHover={{ scale: 1.1, rotate: 5 }}
                             className="w-24 h-24 bg-[#d4af37]/10 border border-[#d4af37] rounded-full flex items-center justify-center mx-auto mb-6 shadow-[0_0_20px_rgba(212,175,55,0.3)]"
@@ -128,10 +129,10 @@ const Profile = () => {
                                                 <p className="font-mono text-xs text-gray-500 tracking-wider">ORDER: {order._id}</p>
                                                 <p className="text-[10px] text-gray-600 font-bold uppercase mt-1">{new Date(order.createdAt).toLocaleString()}</p>
                                             </div>
-                                                <div className="mt-4 md:mt-0 text-left md:text-right flex flex-col items-start md:items-end">
-                                                    <span className="text-xl font-black text-white">
-                                                        ₹{Number(order.totalPrice || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
-                                                    </span>
+                                            <div className="mt-4 md:mt-0 text-left md:text-right flex flex-col items-start md:items-end">
+                                                <span className="text-xl font-black text-white">
+                                                    ₹{Number(order.totalPrice || 0).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                                                </span>
                                                 {isSuccess ? (
                                                     <span className="flex items-center text-green-500 text-[10px] font-bold uppercase tracking-widest mt-1">
                                                         <CheckCircle2 className="w-3 h-3 mr-1" /> Payment Successful

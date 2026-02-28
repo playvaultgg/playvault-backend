@@ -56,7 +56,7 @@ const Home = () => {
     return (
         <div className="bg-[#050505] min-h-screen text-white overflow-x-hidden">
             {/* HEROBANNER */}
-            <div className="relative w-full h-[70vh] flex items-center justify-center overflow-hidden border-b border-[#d4af37]/30">
+            <div className="relative w-full h-[55vh] md:h-[70vh] flex items-center justify-center overflow-hidden border-b border-[#d4af37]/30">
                 <AnimatePresence mode="wait">
                     <motion.img
                         key={currentHero}
@@ -69,9 +69,29 @@ const Home = () => {
                     />
                 </AnimatePresence>
 
+                {/* Content in Hero */}
+                <div className="relative z-10 text-center px-6 w-full max-w-full overflow-hidden">
+                    <motion.h1
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="text-4xl md:text-7xl font-black uppercase tracking-tight mb-4 drop-shadow-[0_0_20px_rgba(0,0,0,1)] break-words"
+                    >
+                        THE FUTURE OF <span className="text-[#d4af37] glow-text text-shadow-gold">GAMING</span>
+                    </motion.h1>
+                    <motion.p
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.2 }}
+                        className="text-gray-300 font-bold uppercase tracking-[0.3em] text-[10px] md:text-sm mb-10"
+                    >
+                        Secure Digital Vault • Instant Global Access
+                    </motion.p>
+                </div>
+
                 {/* Gradient Overlay for seamless blend */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent z-0"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent z-0"></div>
             </div>
+
 
             {/* TRENDING GAMES SECTION */}
             <div className="container mx-auto px-6 py-16">
@@ -165,30 +185,31 @@ const Home = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.8 }}
-                className="container mx-auto px-6 py-16 mb-16"
+                className="container mx-auto px-4 md:px-6 py-10 md:py-16 mb-16"
             >
-                <div className="relative rounded-2xl overflow-hidden border border-[#d4af37]/50 shadow-[0_0_50px_rgba(212,175,55,0.2)] group">
-                    <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/80 to-transparent z-10"></div>
+                <div className="relative rounded-2xl overflow-hidden border border-[#d4af37]/50 shadow-[0_0_50px_rgba(212,175,55,0.2)] group min-h-[400px] flex items-center">
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/90 md:via-[#050505]/80 to-transparent z-10"></div>
                     <motion.img
                         whileHover={{ scale: 1.05 }}
                         transition={{ duration: 10, ease: "linear" }}
                         src="/images/ghost-of-tsushima.png"
-                        className="absolute inset-0 w-full h-full object-cover object-right"
+                        className="absolute inset-0 w-full h-full object-cover object-right sm:object-center"
                         alt="promo"
                         onError={(e) => { e.target.onerror = null; e.target.src = "https://images.unsplash.com/photo-1542751371-adc38448a05e?q=80&w=2000&auto=format&fit=crop"; }}
                     />
 
-                    <div className="relative z-20 p-10 md:p-16 max-w-2xl">
+                    <div className="relative z-20 p-8 md:p-16 max-w-2xl">
                         <h2 className="text-3xl md:text-5xl font-black text-white uppercase tracking-tight mb-4 drop-shadow-lg">Unleash The <span className="text-[#d4af37] glow-text">Samurai</span></h2>
-                        <p className="text-gray-300 font-medium mb-8 text-lg drop-shadow-md">Ghost of Tsushima is now available. Instant delivery with zero hidden fees. Enhance your collection today.</p>
-                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block">
-                            <Link to="/browse" className="inline-block px-8 py-4 bg-white text-black font-extrabold tracking-widest uppercase rounded-xl hover:bg-[#d4af37] transition-all glow-btn glow-btn-gold">
+                        <p className="text-gray-300 font-medium mb-8 text-sm md:text-lg drop-shadow-md">Ghost of Tsushima is now available. Instant delivery with zero hidden fees. Enhance your collection today.</p>
+                        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="inline-block w-full sm:w-auto">
+                            <Link to="/browse" className="block sm:inline-block px-8 py-4 bg-white text-black font-extrabold tracking-widest uppercase rounded-xl hover:bg-[#d4af37] transition-all glow-btn glow-btn-gold text-center">
                                 Shop New Releases
                             </Link>
                         </motion.div>
                     </div>
                 </div>
             </motion.div>
+
 
             {/* INTEL FAQ MODULE */}
             <div className="container mx-auto px-6 py-16 border-t border-gray-900 mt-10">

@@ -82,37 +82,38 @@ const GameDetails = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-[#050505]/90 via-[#050505]/40 to-transparent"></div>
 
-                <div className="relative container mx-auto px-6 pb-16 z-10 flex flex-col md:flex-row items-end justify-between">
+                <div className="relative container mx-auto px-6 pb-10 md:pb-16 z-10 flex flex-col md:flex-row items-end justify-between">
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ delay: 0.2, duration: 0.6 }}
                         className="max-w-3xl"
                     >
-                        <div className="flex gap-3 mb-6">
+                        <div className="flex flex-wrap gap-2 md:gap-3 mb-4 md:mb-6">
                             {game.trending && (
-                                <motion.span whileHover={{ y: -2 }} className="bg-red-600/20 border border-red-500 text-red-400 text-[10px] font-black px-3 py-1 flex items-center rounded-sm uppercase tracking-widest shadow-[0_0_10px_rgba(220,38,38,0.4)]"><Flame className="w-4 h-4 mr-1 animate-pulse text-red-500" /> Trending</motion.span>
+                                <motion.span whileHover={{ y: -2 }} className="bg-red-600/20 border border-red-500 text-red-400 text-[9px] md:text-[10px] font-black px-2 md:px-3 py-1 flex items-center rounded-sm uppercase tracking-widest shadow-[0_0_10px_rgba(220,38,38,0.4)]"><Flame className="w-3 md:w-4 h-3 md:h-4 mr-1 animate-pulse text-red-500" /> Trending</motion.span>
                             )}
-                            <span className="bg-[#d4af37]/10 border border-[#d4af37]/50 text-[#d4af37] text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest">
+                            <span className="bg-[#d4af37]/10 border border-[#d4af37]/50 text-[#d4af37] text-[9px] md:text-[10px] font-bold px-2 md:px-3 py-1 rounded-sm uppercase tracking-widest">
                                 {game.category}
                             </span>
-                            <span className="bg-[#111] border border-gray-700 text-white text-[10px] font-bold px-3 py-1 rounded-sm uppercase tracking-widest flex items-center">
-                                <Monitor className="w-3 h-3 mr-2" /> {game.platform}
+                            <span className="bg-[#111] border border-gray-700 text-white text-[9px] md:text-[10px] font-bold px-2 md:px-3 py-1 rounded-sm uppercase tracking-widest flex items-center">
+                                <Monitor className="w-3 h-3 mr-1 md:mr-2" /> {game.platform}
                             </span>
                         </div>
 
-                        <h1 className="text-5xl md:text-7xl font-black mb-4 tracking-tighter text-white drop-shadow-2xl">
+                        <h1 className="text-4xl md:text-7xl font-black mb-4 tracking-tighter text-white drop-shadow-2xl uppercase">
                             {game.title}
                         </h1>
 
-                        <div className="flex flex-wrap items-center gap-6 text-gray-400 font-medium tracking-wide">
-                            <span className="flex items-center text-[#d4af37]"><Star className="w-5 h-5 mr-2 fill-current" /> {game.rating} / 5</span>
-                            <span className="flex items-center text-green-500"><ShieldCheck className="w-5 h-5 mr-2" /> Verified Key</span>
-                            <span className="flex items-center"><Zap className="w-5 h-5 mr-2 text-blue-400" /> Instant FamPay Delivery</span>
+                        <div className="flex flex-wrap items-center gap-4 md:gap-6 text-gray-400 font-bold tracking-wide text-xs md:text-sm">
+                            <span className="flex items-center text-[#d4af37]"><Star className="w-4 md:w-5 h-4 md:h-5 mr-1 md:mr-2 fill-current" /> {game.rating} / 5</span>
+                            <span className="flex items-center text-green-500"><ShieldCheck className="w-4 md:w-5 h-4 md:h-5 mr-1 md:mr-2" /> Verified Key</span>
+                            <span className="flex items-center"><Zap className="w-4 md:w-5 h-4 md:h-5 mr-1 md:mr-2 text-blue-400" /> Instant Access</span>
                         </div>
                     </motion.div>
                 </div>
             </div>
+
 
             {/* Content & Purchasing Details Layout */}
             <div className="container mx-auto px-6 py-16 grid grid-cols-1 lg:grid-cols-3 gap-16 relative z-20">
@@ -160,14 +161,14 @@ const GameDetails = () => {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="relative"
+                    className="relative lg:order-last order-first"
                 >
-                    <div className="bg-gradient-to-b from-[#111] to-[#0a0a0a] border border-gray-800 rounded-2xl p-8 sticky top-32 shadow-[0_0_40px_rgba(212,175,55,0.08)]">
-                        <div className="text-center mb-8 border-b border-gray-800/50 pb-8">
-                            <p className="text-[#d4af37] font-bold text-xs uppercase tracking-widest mb-3 bg-[#d4af37]/10 inline-block px-4 py-1 rounded-full">{game.platform} Edition</p>
-                            <div className="flex justify-center items-start mt-4">
-                                <span className="text-3xl text-white font-bold mt-2">₹</span>
-                                <span className="text-6xl font-black text-white tracking-tighter">
+                    <div className="bg-gradient-to-b from-[#111] to-[#0a0a0a] border border-gray-800 rounded-2xl p-6 md:p-8 lg:sticky lg:top-32 shadow-[0_0_40px_rgba(212,175,55,0.08)]">
+                        <div className="text-center mb-6 md:mb-8 border-b border-gray-800/50 pb-6 md:pb-8">
+                            <p className="text-[#d4af37] font-bold text-[10px] uppercase tracking-widest mb-3 bg-[#d4af37]/10 inline-block px-4 py-1 rounded-full">{game.platform} Edition</p>
+                            <div className="flex justify-center items-start mt-2 md:mt-4">
+                                <span className="text-2xl text-white font-bold mt-2">₹</span>
+                                <span className="text-5xl md:text-6xl font-black text-white tracking-tighter">
                                     {Number(game.price).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
                                 </span>
                             </div>
@@ -178,22 +179,22 @@ const GameDetails = () => {
                             whileTap={{ scale: 0.98 }}
                             onClick={handleAdd}
                             disabled={added}
-                            className={`w-full py-5 flex items-center justify-center space-x-3 rounded-xl font-extrabold uppercase tracking-widest transition-all mb-4 ${added ? 'bg-green-500 text-black shadow-[0_0_20px_rgba(34,197,94,0.6)] glow-btn' : 'bg-[#d4af37] text-black glow-btn glow-btn-gold'}`}
+                            className={`w-full py-4 md:py-5 flex items-center justify-center space-x-3 rounded-xl font-extrabold uppercase tracking-widest transition-all mb-4 text-sm md:text-base ${added ? 'bg-green-500 text-black shadow-[0_0_20px_rgba(34,197,94,0.6)] glow-btn' : 'bg-[#d4af37] text-black glow-btn glow-btn-gold'}`}
                         >
-                            <ShoppingBag className="w-6 h-6" />
+                            <ShoppingBag className="w-5 md:w-6 h-5 md:h-6" />
                             <span>{added ? 'ACQUIRED IN VAULT' : 'PURCHASE KEY'}</span>
                         </motion.button>
 
-                        <div className="mt-8 space-y-4">
+                        <div className="mt-6 md:mt-8 space-y-4">
                             <div className="flex items-center text-gray-400 text-sm">
-                                <ShieldCheck className="w-5 h-5 text-green-500 mr-4" />
+                                <ShieldCheck className="w-5 h-5 text-green-500 mr-4 shrink-0" />
                                 <div>
                                     <p className="text-white font-bold">Guaranteed Safe Checkout</p>
                                     <p className="text-xs mt-1">Encrypted via FamPay Gateway</p>
                                 </div>
                             </div>
                             <div className="flex items-center text-gray-400 text-sm">
-                                <Download className="w-5 h-5 text-blue-400 mr-4" />
+                                <Download className="w-5 h-5 text-blue-400 mr-4 shrink-0" />
                                 <div>
                                     <p className="text-white font-bold">Instant Digital Download</p>
                                     <p className="text-xs mt-1">Code delivered instantly to dashboard</p>
@@ -202,11 +203,13 @@ const GameDetails = () => {
                         </div>
 
                         <div className="text-center mt-8 pt-6 border-t border-gray-800">
-                            <img src="https://fampay.in/images/header/fampay_logo.svg" alt="FamPay" className="h-6 w-auto mx-auto opacity-70 mb-2" />
-                            <p className="text-[10px] text-gray-600 uppercase tracking-widest">Official Merchant Partner</p>
+                            <p className="text-[10px] text-gray-500 uppercase font-black tracking-widest mb-1 items-center justify-center flex">
+                                <ShieldCheck className="w-3 h-3 mr-1" /> FamPay Certified
+                            </p>
                         </div>
                     </div>
                 </motion.div>
+
             </div>
         </div>
     );

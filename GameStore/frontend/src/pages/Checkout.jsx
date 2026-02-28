@@ -45,6 +45,15 @@ const Checkout = () => {
     const handleGenerateQR = async (e) => {
         e.preventDefault();
         setErrorDesc('');
+        const total = Number(getCartTotal());
+        if (cartItems.length === 0) {
+            setErrorDesc('Your cart is empty. Add games before checkout.');
+            return;
+        }
+        if (!total || total <= 0) {
+            setErrorDesc('Cart total must be greater than zero.');
+            return;
+        }
         setLoading(true);
 
         try {
@@ -61,7 +70,7 @@ const Checkout = () => {
                     price: i.price,
                     game: i._id
                 })),
-                totalPrice: Number(getCartTotal())
+                totalPrice: total
             };
 
             const { data } = await axios.post('/api/payments/fampay/qr/create', payload, config);
@@ -256,18 +265,18 @@ const Checkout = () => {
                                         <h3 className="text-xl font-bold mb-2">Scan to Pay via FamPay</h3>
                                         <p className="text-gray-400 text-sm mb-6 pb-4 border-b border-gray-800 w-full text-center tracking-wider uppercase">Order: <span className="font-mono text-[#d4af37]"> {transactionState?.orderId}</span></p>
 
-                                        <div className="p-4 bg-white rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.1)] mb-6 relative w-full max-w-[280px] flex flex-col items-center justify-center">
+                                        <div className="p-4 bg-white rounded-xl shadow-[0_0_30px_rgba(255,255,255,0.1)] mb-6 relative w-full h-[280px] sm:max-w-[280px] flex items-center justify-center overflow-hidden">
                                             <img
                                                 src={qrData}
                                                 alt="Payment QR Code"
-                                                className="w-full h-auto object-contain mx-auto rounded-lg"
+                                                className="w-full h-full object-contain mx-auto rounded-lg scale-[1.2] sm:scale-100"
+                                                style={{ imageRendering: 'pixelated' }}
                                                 onError={(e) => {
-                                                    // In case server fails to generate base64, never redirect
                                                     e.target.onerror = null;
                                                 }}
                                             />
-                                            <p className="text-black text-center text-sm font-bold mt-2 uppercase">Scan with any UPI app</p>
                                         </div>
+                                        <p className="text-black text-center text-sm font-bold mt-2 uppercase">Scan with any UPI app</p>
 
                                         <button onClick={handleCopy} className="mb-6 flex items-center justify-center px-4 py-2 bg-[#111] border border-gray-800 rounded-lg text-gray-300 hover:text-[#d4af37] transition-colors text-sm font-mono touch-target">
                                             {copied ? <CheckCircle className="w-4 h-4 mr-2 text-green-500" /> : <Copy className="w-4 h-4 mr-2" />}
@@ -285,14 +294,15 @@ const Checkout = () => {
                                             />
                                         </div>
 
-                                        <div className="flex space-x-4 w-full fixed bottom-0 left-0 p-4 bg-[#050505] md:bg-transparent md:relative md:p-0 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.8)] md:shadow-none border-t border-gray-800 md:border-none">
-                                            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={handleVerifyPayment} disabled={loading} className="flex-1 bg-[#d4af37] text-black font-bold py-3 md:py-4 rounded-xl flex justify-center transition-all items-center uppercase text-sm md:text-xs tracking-wider glow-btn glow-btn-gold">
+                                        <div className="flex space-x-3 w-full fixed bottom-0 left-0 p-4 bg-[#050505] md:bg-transparent md:relative md:p-0 z-50 shadow-[0_-10px_30px_rgba(0,0,0,0.8)] md:shadow-none border-t border-gray-800 md:border-none" style={{ paddingBottom: 'calc(1rem + env(safe-area-inset-bottom))' }}>
+                                            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={handleVerifyPayment} disabled={loading} className="flex-1 bg-[#d4af37] text-black font-black py-4 md:py-4 rounded-xl flex justify-center transition-all items-center uppercase text-sm md:text-sm tracking-wider glow-btn glow-btn-gold shadow-[0_0_20px_rgba(212,175,55,0.4)]">
                                                 {loading ? <Loader className="w-5 h-5 animate-spin" /> : 'I HAVE PAID'}
                                             </motion.button>
-                                            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={handleCancel} disabled={loading} className="flex-1 border border-gray-600 hover:border-red-500 hover:text-red-500 text-gray-400 font-bold py-3 md:py-4 rounded-xl transition-colors uppercase text-sm md:text-xs tracking-wider max-w-[100px] flex items-center justify-center">
+                                            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} onClick={handleCancel} disabled={loading} className="flex-[0.5] border border-gray-600 hover:border-red-500 hover:text-red-500 text-gray-400 font-bold py-4 md:py-4 rounded-xl transition-colors uppercase text-xs md:text-xs tracking-wider flex items-center justify-center">
                                                 Cancel
                                             </motion.button>
                                         </div>
+
                                     </motion.div>
                                 )}
 
@@ -310,13 +320,13 @@ const Checkout = () => {
                                 <div className="space-y-4 mb-6 max-h-[350px] overflow-y-auto pr-2 custom-scrollbar">
                                     {cartItems.map((item, idx) => (
                                         <div key={idx} className="flex justify-between items-center bg-[#0a0a0a] p-4 rounded-lg border border-gray-800/50 hover:border-[#d4af37]/30 transition-colors">
-                                        <div className="flex flex-col">
-                                            <span className="text-white font-bold tracking-wide truncate w-48" title={item.title}>{item.title}</span>
-                                            <span className="text-[10px] text-gray-500 mt-1 uppercase tracking-widest">Digital Key</span>
-                                        </div>
-                                        <span className="text-[#d4af37] font-black">
-                                            ₹{Number(item.price).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
-                                        </span>
+                                            <div className="flex flex-col">
+                                                <span className="text-white font-bold tracking-wide truncate w-48" title={item.title}>{item.title}</span>
+                                                <span className="text-[10px] text-gray-500 mt-1 uppercase tracking-widest">Digital Key</span>
+                                            </div>
+                                            <span className="text-[#d4af37] font-black">
+                                                ₹{Number(item.price).toLocaleString('en-IN', { maximumFractionDigits: 0 })}
+                                            </span>
                                         </div>
                                     ))}
                                 </div>

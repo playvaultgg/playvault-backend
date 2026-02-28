@@ -28,11 +28,34 @@ const AdminLayout = () => {
     ];
 
     return (
-        <div className="bg-[#050505] min-h-screen text-white flex flex-col md:flex-row relative">
+        <div className="bg-[#050505] min-h-screen text-white flex flex-col lg:flex-row relative">
             <div className="absolute top-0 right-[-10%] w-[30%] h-[50%] bg-red-600/5 blur-[150px] pointer-events-none rounded-full z-0"></div>
 
-            {/* Admin Sidebar (Desktop) */}
-            <div className="w-full md:w-64 bg-[#0a0a0a] border-r border-gray-800 p-6 hidden md:flex flex-col justify-between min-h-screen sticky top-0 z-10 shadow-xl">
+            {/* Mobile/Tablet Header (Permanent Top Bar on non-desktop) */}
+            <header className="lg:hidden bg-[#0a0a0a] border-b border-gray-800 p-4 sticky top-0 z-[50] flex justify-between items-center shadow-lg w-full">
+                <Link to="/admin/dashboard" className="text-xl font-black text-white tracking-widest uppercase flex items-center">
+                    <Database className="w-5 h-5 mr-3 text-red-600" />
+                    VAULT<span className="text-red-600">ADMIN</span>
+                </Link>
+                <div className="flex items-center space-x-3">
+                    {adminInfo && (
+                        <div className="hidden sm:block text-right mr-4 border-r border-gray-800 pr-4">
+                            <p className="text-white font-bold text-[10px] uppercase truncate">{adminInfo.name}</p>
+                        </div>
+                    )}
+                    <button
+                        onClick={() => setSidebarOpen(true)}
+                        className="text-white p-2 bg-[#111] hover:bg-gray-800 border border-gray-800 rounded-lg transition-colors touch-target"
+                    >
+                        <Menu className="w-6 h-6" />
+                    </button>
+                </div>
+            </header>
+
+            {/* Admin Sidebar (Visible on Desktop) */}
+            <div className="w-full lg:w-64 bg-[#0a0a0a] border-r border-gray-800 p-6 hidden lg:flex flex-col justify-between min-h-screen sticky top-0 z-10 shadow-xl">
+
+
                 <div>
                     <h2 className="text-2xl font-black text-white mb-10 tracking-widest shadow-red-500 drop-shadow-[0_0_10px_rgba(220,38,38,0.4)]">
                         VAULT<span className="text-red-600">ADMIN</span>
@@ -130,18 +153,13 @@ const AdminLayout = () => {
                 )}
             </AnimatePresence>
 
-            {/* Mobile Header -> Replaced with Floating Action Button */}
-            <button
-                onClick={() => setSidebarOpen(true)}
-                className="md:hidden fixed bottom-6 right-6 z-30 bg-red-600 text-white p-4 rounded-full shadow-[0_0_20px_rgba(220,38,38,0.5)] touch-target flex items-center justify-center glow-btn glow-btn-red"
-            >
-                <Menu className="w-6 h-6" />
-            </button>
 
             {/* Main Content Area */}
             <main className="flex-1 w-full relative z-10 overflow-x-hidden min-h-screen">
+
                 <Outlet />
             </main>
+
         </div>
     );
 };
