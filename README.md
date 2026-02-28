@@ -1,93 +1,84 @@
-# PlayVault - Full-Stack Game E-Commerce Platform
+# 🛡️ PLAYVAULT.GG | Elite Game Vault
+### *The Ultimate Full-Stack Digital Gaming Terminal*
 
-A comprehensive, production-ready full-stack gaming e-commerce website with a dark luxury theme. Built using a modern and scalable MERN stack (MongoDB, Express, React, Node.js).
+PlayVault is a high-performance, production-ready E-Commerce platform for digital game keys. Engineered with a "Dark Luxury" aesthetic, it utilizes the **MERN Stack** (MongoDB, Express, React, Node.js) to deliver a seamless, high-speed shopping experience for elite gamers.
 
-![PlayVault Preview](/GameStore/frontend/public/favicon.svg)
+🌐 **Live Production Terminal:** [playvault-backend-production.up.railway.app](https://playvault-backend-production.up.railway.app/)
 
-## 🚀 Tech Stack Highlights
+---
 
-### Frontend
-- **React.js**: Enables dynamic, component-driven UI ensuring smooth page transitions and exceptional user experience.
-- **Vite**: Next-generation frontend tooling for extremely fast development and optimized builds.
-- **Tailwind CSS (v4)**: Selected for its utility-first approach to quickly iterate on the luxurious black and gold (`#111111` / `#d4af37`) gaming UI aesthetics.
-- **React Router (v7)**: Manages client-side routing to support the Single Page Application (SPA) feel.
-- **Axios**: Handles promises effectively, providing a robust interface for HTTP requests between the client and server.
-- **Stripe React**: Secure payment intent and processing components.
-- **Framer Motion**: For beautiful, smooth animations across the application.
-- **Lucide React**: Scalable vector icons perfectly fitted for gaming and e-commerce themes.
+## 🚀 System Architecture & Tech Highlights
 
-### Backend
-- **Node.js & Express.js**: A fast, asynchronous backend server capable of handling RESTful API requests quickly, maintaining the high-speed demand of a modern gaming application.
-- **MongoDB (via Mongoose)**: A NoSQL document database chosen to seamlessly store diverse shapes of data—such as variable game specs and varying user order sizes.
-- **Stripe API**: Server-side processing for secure checkouts and payments.
-- **Twilio API**: For SMS notifications and integrations.
+### 🎨 Frontend Performance
+- **React.js 18**: Dynamic, component-driven UI with optimized rendering.
+- **Vite & Tailwind CSS**: Next-gen styling and lightning-fast builds using a custom Black & Gold design system.
+- **Framer Motion**: Premium micro-animations for high-end user engagement.
+- **Lucide React**: Cyberpunk-style iconography.
+- **Safe Area Support**: Full viewport optimization for iOS (Notch support) and Android devices.
 
-### Authentication & Security
-- **JWT (JSON Web Tokens)**: Secures client-server communication. Protects user dashboard, cart checkouts, and admin panel privileges.
-- **Bcrypt.js**: Hashes passwords to ensure sensitive user information is never stored or exposed in plain text.
-- **Secure Middleware**: Express routing checks user tokens on protected routes (like order history).
+### ⚙️ Backend & Security
+- **Node.js & Express**: Asynchronous server logic for low-latency API responses.
+- **MongoDB & Mongoose**: Flexible NoSQL schema for variable game specifications and cross-referenced orders.
+- **JWT (JSON Web Tokens)**: Encrypted session management for users and administrative privileges.
+- **Bcrypt.js**: Military-grade password hashing to protect sensitive user data.
+- **Cloudinary Integration**: Dynamic image processing and hosting for game assets.
 
-## 🗂️ Project Structure
+---
 
-The project has been architected tightly into two separate components located within the `GameStore` directory:
-- `/GameStore/frontend`: Holds the React/Vite source code.
-- `/GameStore/backend`: Holds the Express server, Mongoose models, and API routing.
+## 🌐 Deployment & Hosting
+This application is professionally hosted and managed on **Railway**, ensuring:
+- **Auto-deployment**: Continuous integration from the GitHub repository.
+- **Scalability**: High-availability database clusters (MongoDB) for global access.
+- **Secure SSL**: Automated HTTPS encryption for all transactions.
 
-## 🛠️ How Client and Server Communicate
+---
 
-The architecture is fully decoupled. The robust REST API backend exclusively handles database interactions and business logic (like verifying passwords, hashing secrets, processing payments, or tallying order totals), sending lightweight JSON responses back. The frontend receives these JSON payloads and uses React states `useState` and effects `useEffect` to instantly paint the user interface. They communicate over `HTTP` requests (`/api/...`) via Axios using protected Bearer Tokens.
+## 🛠️ Infrastructure & Setup
 
-## 📥 Local Development Setup
+### 1. Database Configuration
+Ensure your `MONGO_URI` is correctly pointed to your production cluster or local instance.
 
-It is recommended to run the frontend and backend in two separate terminal windows. 
+### 2. Environment Variables (`/backend/.env`)
+```env
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=your_secure_secret_key
+CLOUDINARY_CLOUD_NAME=your_cloud_name
+CLOUDINARY_API_KEY=your_api_key
+CLOUDINARY_API_SECRET=your_api_secret
+```
 
-### 1. Database Setup
-Make sure MongoDB is installed locally or create a MongoDB Atlas remote cluster and keep the connection string ready.
+### 3. Local Execution
+**Backend Command:**
+```bash
+cd GameStore/backend
+npm install
+npm start
+```
 
-### 2. Backend Setup
-1. Open a terminal and navigate to the backend directory:
-   ```bash
-   cd GameStore/backend
-   ```
-2. Install the backend dependencies:
-   ```bash
-   npm install
-   ```
-3. Set up the Environment Variables by creating a `.env` file in `/backend`:
-   ```env
-   PORT=5000
-   MONGO_URI=mongodb://localhost:27017/playvault
-   JWT_SECRET=your_super_secret_jwt_key
-   CLIENT_URL=http://localhost:5173
-   STRIPE_SECRET_KEY=your_stripe_secret
-   ```
-4. Start the backend DEV server:
-   ```bash
-   npm run dev
-   ```
-   *You should see "MongoDB connected" and "Server running on port 5000."*
+**Frontend Command:**
+```bash
+cd GameStore/frontend
+npm install
+npm run dev
+```
 
-### 3. Frontend Setup
-1. Open a second terminal and navigate to the frontend directory:
-   ```bash
-   cd GameStore/frontend
-   ```
-2. Install the frontend dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the Vite React development server:
-   ```bash
-   npm run dev
-   ```
-   *You can now visit http://localhost:5173 to view the PlayVault Store.*
+---
 
-## ⚙️ Key Features
+## 👑 Administrative Control
+The **Vault Admin Panel** allows for real-time management of the gaming ecosystem:
+- **Inventory Control**: Inject/Edit game protocols and assets.
+- **Order Monitoring**: Track encrypted transactions and payment status.
+- **User Management**: Oversee registered agents and security roles.
+- **Communication**: Manage incoming support and contact logs.
 
-- **Admin Dashboard**: Built into the Mongoose schema `User.js`, roles are designated (`user` | `admin`). Admins have full access to manage games, view orders, check payments, and process user messages.
-- **Order Handling**: Orders correctly bind to a User's Object ID in MongoDB, allowing users to view their past purchases securely.
-- **Dynamic Routing**: Clicking "View Details" on the Browse UI passes parameters to the Game Details view which simultaneously pulls matching database configurations from the `/api/games/:id` endpoint.
-- **Production Build Ready**: The backend `server.js` contains routing for serving the Vite static build in production environments (like Railway, Render, or Heroku).
+---
 
-## 📜 License
-This project is proprietary for Playvault.gg.
+## 📜 Development & Ownership
+This platform was architected and developed for **PlayVault.GG**. 
+- **Developer:** [The PlayVault Team]
+- **Host:** Railway Cloud Infrastructure
+- **Version:** 1.2.0 (Stable Production Rebuild)
+
+---
+© 2026 PLAYVAULT.GG. All rights reserved.
